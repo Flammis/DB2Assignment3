@@ -73,9 +73,6 @@ create function kdtree_clear(Integer xtId)->Object as
 
 /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
 
-/*create function winequalitysamples(Charstring sp)-> Vector of Number wq as stored;
-create_index("winequalitysamples", "wq", "KDTREE", "multiple");*/
-
 create_index("features", "f", "KDTREE", "multiple");
 
 /* Exercise 4. Investigate execution plans and test KD-tree indexing by answerin the following questions:
@@ -84,7 +81,7 @@ create_index("features", "f", "KDTREE", "multiple");
   c. What kind of index is used in the execution plan of get_sample_example?
   d. Why? */
 
-pc("winequalitysamples");
+pc("features");
 
 
 /* Exercise 5. blablabla */
