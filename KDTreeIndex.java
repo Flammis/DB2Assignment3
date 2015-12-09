@@ -187,6 +187,7 @@ public class KDTreeIndex
     
     /*-----------------------------------------------------------------
       kdtree_clear flushes away entire KD-tree given its Id
+      returns true if the the kdtree was removed
       -----------------------------------------------------------------*/
     public void kdtree_clear(CallContext cxt, Tuple tpl)
     throws AmosException
@@ -200,7 +201,10 @@ public class KDTreeIndex
       if (m != null)
       {
         m_lkdtrees.remove(id);
-        //tpl.setElem(1,val);     // is this step required?
+        tpl.setElem(1,true);     // is this step required?
+        cxt.emit(tpl);
+      } else {
+        tpl.setElem(1,false);     // is this step required?
         cxt.emit(tpl);
       }
     }    
