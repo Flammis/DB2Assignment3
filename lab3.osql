@@ -52,9 +52,12 @@ count(select s from WineSample s);
 enable_java(); 
 
 /* Exercise 1. Register with Amos a new index type named 'kdtree' */
-register_exindextype('kdtree', FALSE);
+register_exindextype('KDTREE', FALSE);
 
 /* Exercise 2. Redefine Mexima foreign function for the KD-tree index structure */
+
+create function kdtree_make() -> Integer xtId as
+  foreign "JAVA:KDTreeIndex/kdtree_make";
 
 create function kdtree_put(Integer xtId, Object key, Object val)->Object as
   foreign "JAVA:KDTreeIndex/kdtree_put";
@@ -72,7 +75,9 @@ create function kdtree_clear(Integer xtId)->Object as
 
   /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
 
-  create_index("winequalitysamples", "wq", "kdtree", "multiple");
+  create function winequalitysamples(Charstring sp)-> Vector of Number wq as stored;
+
+  create_index("winequalitysamples", "wq", "KDTREE", "multiple");
 
 
 
