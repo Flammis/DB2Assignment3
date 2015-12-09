@@ -7,32 +7,6 @@
  *
  ****************************************************************************/
 
-/* Enable foreign functions in Java */
-enable_java(); 
-
-/* Exercise 1. Register with Amos a new index type named 'kdtree' */
-register_exindextype('kdtree', FALSE);
-
-/* Exercise 2. Redefine Mexima foreign function for the KD-tree index structure */
-
-create function kdtree_put(Integer xtId, Object key, Object val)->Object as
-  foreign "JAVA:KDTreeIndex/kdtree_put";
-
-create function kdtree_get(Integer xtId, Object key)->Object as
-  foreign "JAVA:KDTreeIndex/kdtree_get";
-
-create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
-  foreign "JAVA:KDTreeIndex/kdtree_delete";
-
-create function kdtree_clear(Integer xtId)->Object as
-  foreign "JAVA:KDTreeIndex/kdtree_clear";
-
-  /* Missing last function of KDTreeIndex.java */
-
-  /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
-
-
-
 /* --------------------------------------------------------------------------
  Define a new data type WineSample
  -------------------------------------------------------------------------- */
@@ -59,8 +33,8 @@ create function addwinesample(Vector of Number csvrow, Vector of Number csvpos)
     /* Add one new wine sample to the database */
     as begin
         declare WineSample ws;
-	create WineSample(wsId, features) 
- 	instances ws (csvrow[0], project(csvrow, csvpos));
+  create WineSample(wsId, features) 
+  instances ws (csvrow[0], project(csvrow, csvpos));
        end;
 
 /* Read all samples from the CVS file into the database */
@@ -73,6 +47,36 @@ count(select s from WineSample s);
 /* -----------------------------------------------------------------------
  Database now populated
  ------------------------------------------------------------------------ */
+
+/* Enable foreign functions in Java */
+enable_java(); 
+
+/* Exercise 1. Register with Amos a new index type named 'kdtree' */
+register_exindextype('kdtree', FALSE);
+
+/* Exercise 2. Redefine Mexima foreign function for the KD-tree index structure */
+
+create function kdtree_put(Integer xtId, Object key, Object val)->Object as
+  foreign "JAVA:KDTreeIndex/kdtree_put";
+
+create function kdtree_get(Integer xtId, Object key)->Object as
+  foreign "JAVA:KDTreeIndex/kdtree_get";
+
+create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
+  foreign "JAVA:KDTreeIndex/kdtree_delete";
+
+create function kdtree_clear(Integer xtId)->Object as
+  foreign "JAVA:KDTreeIndex/kdtree_clear";
+
+  /* Missing last function of KDTreeIndex.java */
+
+  /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
+
+  create_index("winequalitysamples", "wq", "kdtree", "multiple");
+
+
+
+
 /* -----------------------------------------------------------------------
   Exercise 1.a
   Complete function getSample to get a wine sample for a given wsID. 
