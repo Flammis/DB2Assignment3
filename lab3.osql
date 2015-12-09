@@ -29,13 +29,13 @@ create function features(WineSample ws) -> Vector of Number f as stored;
 set :csvpos = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 create function addwinesample(Vector of Number csvrow, Vector of Number csvpos)
-                            -> Boolean
-    /* Add one new wine sample to the database */
-    as begin
-        declare WineSample ws;
-  create WineSample(wsId, features) 
-  instances ws (csvrow[0], project(csvrow, csvpos));
-       end;
+-> Boolean
+/* Add one new wine sample to the database */
+as begin
+declare WineSample ws;
+create WineSample(wsId, features) 
+instances ws (csvrow[0], project(csvrow, csvpos));
+end;
 
 /* Read all samples from the CVS file into the database */
 addwinesample(cast(read_ntuples('winequalitysample.csv') as Vector of Number),
