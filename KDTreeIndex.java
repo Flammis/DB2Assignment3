@@ -199,7 +199,7 @@ public class KDTreeIndex
 
 	if (m != null)
 	    {
-	    m_lkdtrees.remove(id)
+	    m_lkdtrees.remove(id);
 		tpl.setElem(1,val);	 // is this step required?
 		cxt.emit(tpl);
 	    }
