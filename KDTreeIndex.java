@@ -222,7 +222,6 @@ public class KDTreeIndex
 
       // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
       double [] key  = toArray(tpl.getSeqElem(1));
-
       // TODO Get the distance 
       
       // Get the KD-tree whose id = id    
@@ -230,16 +229,16 @@ public class KDTreeIndex
       
       if (m != null && m.size() > 0)
       {
-      // TODO Find all values whose keys are within distance dist. 
-      List<Oid> ln = null; // list of values 
+        // TODO Find all values whose keys are within distance dist. 
+        List<Oid> ln = null; // list of values 
 
-      if (ln != null && ln.size() > 0) 
+        if (ln != null && ln.size() > 0) 
         {        
         // Loop through and emit the found values
-        for(Oid val : ln) 
-            {
-            // TODO set val to tpl and emit
-            }
+          for(Oid val : ln) 
+          {
+          // TODO set val to tpl and emit
+          }
         }
       }
     }
