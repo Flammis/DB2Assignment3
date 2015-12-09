@@ -71,22 +71,28 @@ create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
 create function kdtree_clear(Integer xtId)->Object as
   foreign "JAVA:KDTreeIndex/kdtree_clear";
 
-  /* Missing last function of KDTreeIndex.java */
+/* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
 
-  /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
+/*create function winequalitysamples(Charstring sp)-> Vector of Number wq as stored;
+create_index("winequalitysamples", "wq", "KDTREE", "multiple");*/
 
-  create function winequalitysamples(Charstring sp)-> Vector of Number wq as stored;
+create_index("features", "f", "KDTREE", "multiple");
 
-  create_index("winequalitysamples", "wq", "KDTREE", "multiple");
-
-  /* Exercise 4. Investigate execution plans and test KD-tree indexing by answerin the following questions:
-    a. What kind of index is used in the execution plan of allsamples?
-    b. Why?
-    c. What kind of index is used in the execution plan of get_sample_example?
-    d. Why? */
+/* Exercise 4. Investigate execution plans and test KD-tree indexing by answerin the following questions:
+  a. What kind of index is used in the execution plan of allsamples?
+  b. Why?
+  c. What kind of index is used in the execution plan of get_sample_example?
+  d. Why? */
 
 pc("winequalitysamples");
 
 
+/* Exercise 5. blablabla */
 
+create function kdtreeProximitySearch(Integer xid, Vector of Number f, Number distance) -> Bag of Object as
+  foreign 'JAVA:KDTreeIndex/kdtreeProximitySearch';
 
+/*create function kdtree_similarity_fn(Integer xtId, Vector of Number x, Number distance) -> Object as
+  foreign "JAVA:KDTreeIndex/kdtreeProximitySearch";*/
+
+/* Now, we should be able to run ... */
