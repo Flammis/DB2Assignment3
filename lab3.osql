@@ -96,6 +96,8 @@ pc("allsamples");
 create function kdtreeProximitySearch(Integer xid, Vector of Number f, Number distance) -> Bag of Object as
   foreign 'JAVA:KDTreeIndex/kdtreeProximitySearch';
 
+create function firstSample()->WineSample ws as select s from WineSample s limit 1;
+
 /*create function kdtree_similarity_fn(Integer xtId, Vector of Number x, Number distance) -> Object as
   foreign "JAVA:KDTreeIndex/kdtreeProximitySearch";*/
 
