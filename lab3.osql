@@ -11,7 +11,7 @@
 enable_java(); 
 
 /* Exercise 1. Register with Amos a new index type named 'kdtree' */
-register_exindextype('kdtree','FOREIGN', FALSE);
+register_exindextype('kdtree', FALSE);
 
 /* Exercise 2. Redefine Mexima foreign function for the KD-tree index structure */
 
@@ -26,6 +26,10 @@ create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
 
 create function kdtree_clear(Integer xtId)->Object as
   foreign "JAVA:KDTreeIndex/kdtree_clear";
+
+  /* Missing last function of KDTreeIndex.java */
+
+  /* Exercise 3. Define an index of type kdtree for the second parameter of the stored function winequalitysamples. */
 
 
 
