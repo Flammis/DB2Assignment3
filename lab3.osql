@@ -24,7 +24,8 @@ create function kdtree_get(Integer xtId, Object key)->Object as
 create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
   foreign "JAVA:KDTreeIndex/kdtree_delete";
 
-
+create function kdtree_clear(Integer xtId)->Object as
+  foreign "JAVA:KDTreeIndex/kdtree_clear";
 
 
 
