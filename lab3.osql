@@ -62,7 +62,7 @@ create function kdtree_make() -> Integer xtId as
 create function kdtree_put(Integer xtId, Object key, Object val)->Object as
   foreign "JAVA:KDTreeIndex/kdtree_put";
 
-create function kdtree_get(Integer xtId, Object key)->Object as
+create function kdtree_get(Integer xtId, Object key)->Bag of Object as
   foreign "JAVA:KDTreeIndex/kdtree_get";
 
 create function kdtree_delete(Integer xtId, Object key, Object val)->Object as
@@ -81,7 +81,14 @@ create_index("features", "f", "KDTREE", "multiple");
   c. What kind of index is used in the execution plan of get_sample_example?
   d. Why? */
 
-pc("features");
+create function get_sample_example(Number wsId) -> WineSample ws
+  as select ws where wsId(ws) = wsId;
+
+create function allsamples(Vector of Number f) -> WineSample ws
+  as select ws where features(ws)=f;
+
+pc("get_sample_example");
+pc("allsamples");
 
 
 /* Exercise 5. blablabla */
