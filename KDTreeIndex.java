@@ -129,30 +129,30 @@ public class KDTreeIndex
     KeyDuplicateException, KeySizeException 
     {
     //Get the id as Integer at position 0
-    int id = tpl.getIntElem(0);
+      int id = tpl.getIntElem(0);
 
-    // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
-    double [] key  = toArray(tpl.getSeqElem(1));
+      // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
+      double [] key  = toArray(tpl.getSeqElem(1));
 
-    // Amos object 
-    Oid val = null;
+      // Amos object 
+      Oid val = null;
 
-    // Get the KD-tree whose id = id    
-    KDTree<Oid>  m = locateKdtree(id);
+      // Get the KD-tree whose id = id    
+      KDTree<Oid>  m = locateKdtree(id);
 
-    if (m != null)
-        {
-        // Search in KD-tree val associated with key
+      if (m != null)
+      {
+      // Search in KD-tree val associated with key
         val = m.search(key);
         
         if (val != null) 
-            {
-            // Set the return val at position 2
-            tpl.setElem(2,val);        
-            // Emit tpl
-            cxt.emit(tpl);
-            }
+        {
+          // Set the return val at position 2
+          tpl.setElem(2,val);        
+          // Emit tpl
+          cxt.emit(tpl);
         }
+      }
     }
     /*-----------------------------------------------------------------
       kdtree_delete deletes (key,val) pair
@@ -161,24 +161,24 @@ public class KDTreeIndex
     throws AmosException, KeyDuplicateException, KeySizeException,
     KeyMissingException
     {
-    // Get the id as Integer at position 0
-    int id = tpl.getIntElem(0);
-    
-    // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
-    double [] key  = toArray(tpl.getSeqElem(1));
-    
-    // Get Amos object to val type of Oid 
-    Oid val =  tpl.getOidElem(2);
-    
-    // Get the KD-tree whose id = id    
-    KDTree<Oid>  m = locateKdtree(id);
+      // Get the id as Integer at position 0
+      int id = tpl.getIntElem(0);
+      
+      // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
+      double [] key  = toArray(tpl.getSeqElem(1));
+      
+      // Get Amos object to val type of Oid 
+      Oid val =  tpl.getOidElem(2);
+      
+      // Get the KD-tree whose id = id    
+      KDTree<Oid>  m = locateKdtree(id);
 
-    if (m != null)
-        {
+      if (m != null)
+      {
         m.delete(key);
         tpl.setElem(3,val);     // is this step required?
         cxt.emit(tpl);
-        }
+      }
     }
 
     /*-----------------------------------------------------------------
@@ -191,18 +191,18 @@ public class KDTreeIndex
     public void kdtree_clear(CallContext cxt, Tuple tpl)
     throws AmosException
     {
-    // Get the id as Integer at position 0
-    int id = tpl.getIntElem(0);
-
-    // Get the KD-tree whose id = id    
-    // KDTree<Oid>  m = locateKdtree(id);
-
-    if (m != null)
-        {
+      // Get the id as Integer at position 0
+      int id = tpl.getIntElem(0);
+      
+      // Get the KD-tree whose id = id    
+      KDTree<Oid>  m = locateKdtree(id);
+      
+      if (m != null)
+      {
         m_lkdtrees.remove(id);
-        tpl.setElem(1,val);     // is this step required?
+        //tpl.setElem(1,val);     // is this step required?
         cxt.emit(tpl);
-        }
+      }
     }    
     
     /*-----------------------------------------------------------------
