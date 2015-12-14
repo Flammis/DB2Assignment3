@@ -222,22 +222,28 @@ public class KDTreeIndex
 
       // Extract feature vector f as key. Convert from sequence of numbers to array of floats.
       double [] key  = toArray(tpl.getSeqElem(1));
-      // TODO Get the distance 
+
+      // Get the distance 
+      double dist=tpl.getIntElem(2);
       
       // Get the KD-tree whose id = id    
       KDTree<Oid>  m = locateKdtree(id);
       
       if (m != null && m.size() > 0)
       {
-        // TODO Find all values whose keys are within distance dist. 
+        // Find all values whose keys are within distance dist.
         List<Oid> ln = null; // list of values 
-
+        //ln=m.nearestEuclidean(key,dist);
+        ln=m.nearest(key,(int)dist);
+        // ln.add(id, m.search(key));
         if (ln != null && ln.size() > 0) 
-        {        
-        // Loop through and emit the found values
+        {
+          // Loop through and emit the found values
           for(Oid val : ln) 
           {
-          // TODO set val to tpl and emit
+            // set val to tpl and emit
+            tpl.setElem(3,val);
+            cxt.emit(tpl);
           }
         }
       }
