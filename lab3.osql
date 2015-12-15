@@ -52,7 +52,7 @@ count(select s from WineSample s);
 enable_java(); 
 
 /* Exercise 1. Register with Amos a new index type named 'kdtree' */
-register_exindextype('KDTREE', FALSE);
+register_exindextype('KDTREE', TRUE);
 
 /* Exercise 2. Redefine Mexima foreign function for the KD-tree index structure */
 
@@ -96,7 +96,10 @@ pc("allsamples");
 
 create function kdtreeProximitySearch(Integer xid, Vector of Number f, Number distance) -> Bag of Object as
   foreign 'JAVA:KDTreeIndex/kdtreeProximitySearch';
+  
+create function findKDtreeID() -> Integer as
+  foreign 'JAVA:KDTreeIndex/findKDtreeID';  
 
 create function firstSample()->WineSample ws as select s from WineSample s limit 1;
 
-kdtreeProximitySearch(wsId(firstSample()),features(firstSample()),9);
+kdtreeProximitySearch(findKDtreeID() ,features(firstSample()),9);

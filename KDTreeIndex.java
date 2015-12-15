@@ -234,7 +234,8 @@ public class KDTreeIndex
         // Find all values whose keys are within distance dist.
         List<Oid> ln = null; // list of values 
         //ln=m.nearestEuclidean(key,dist);
-        ln=m.nearest(key,(int)dist);
+        ln=m.nearestEuclidean(key, dist);
+        
         // ln.add(id, m.search(key));
         if (ln != null && ln.size() > 0) 
         {
@@ -247,5 +248,26 @@ public class KDTreeIndex
           }
         }
       }
+    }
+    
+    /*-----------------------------------------------------------------
+    Find KD-tree id 
+    -----------------------------------------------------------------*/
+    public void findKDtreeID(CallContext cxt, Tuple tpl)
+    throws AmosException,
+    KeySizeException,
+    java.lang.IllegalArgumentException 
+    {
+
+      Enumeration en=m_lkdtrees.keys();
+      int idx = -1;
+      while (en.hasMoreElements()) {
+        Integer key = (Integer)en.nextElement();
+        if(m_lkdtrees.get(key).size() == 2939){
+          idx = (int)key;
+        }
+      }
+      tpl.setElem(0,idx);
+      cxt.emit(tpl);
     }
 }
