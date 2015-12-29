@@ -77,14 +77,20 @@ create_index("features", "f", "KDTREE", "multiple");
 
 /* Exercise 4. Investigate execution plans and test KD-tree indexing by answerin the following questions:
   a. What kind of index is used in the execution plan of allsamples?
+  KD-tree index.
   b. Why?
+  KD-tree index is an index to quickly retrieve winesamples given the feature 11-dimensional array as condition.
   c. What kind of index is used in the execution plan of get_sample_example?
-  d. Why? */
+  Hash index.
+  d. Why? 
+  There is per default an hash index on wsId(ws) so searching for
+  WineSample by wsId can use the index and does not require a full scan.
+  */
 
 create function get_sample_example(Number wsId) -> WineSample ws
   as select ws where wsId(ws) = wsId;
 
-create function allsamples(Vector of Number f) -> WineSample ws
+create function allsamples(Vector of Number f) -> Bag of WineSample ws
   as select ws where features(ws)=f;
 
 pc("get_sample_example");
